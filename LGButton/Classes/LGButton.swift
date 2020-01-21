@@ -161,6 +161,18 @@ open class LGButton: UIControl {
         }
     }
     
+    @IBInspectable public var titleShadowColor: UIColor = UIColor.black {
+        didSet{
+            setupView()
+        }
+    }
+    
+    @IBInspectable public var titleShadowOffset: CGSize = CGSize.zero {
+        didSet{
+            setupView()
+        }
+    }
+    
     @IBInspectable public var verticalOrientation: Bool = false {
         didSet {
             setupView()
@@ -499,6 +511,8 @@ open class LGButton: UIControl {
         }else{
             titleLbl.font = UIFont.systemFont(ofSize: titleFontSize)
         }
+        titleLbl.shadowColor = titleShadowColor
+        titleLbl.shadowOffset = titleShadowOffset
     }
     
     fileprivate func setupLeftIcon(){

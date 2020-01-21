@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LGButton'
-  s.version          = '10.1.6'
+  s.version          = '10.1.7'
   s.summary          = 'A fully customisable subclass of the native UIControl which allows you to create beautiful buttons without writing any line of code.'
   s.homepage         = 'https://github.com/ChronicStim/LGButton.git'
   s.license          = { :type => 'MIT', :file => 'LICENSE.md' }
