@@ -64,8 +64,37 @@ open class LGButton: UIControl {
         }
     }
     
+    // MARK: - Private properties used for the "PrimaryColor" method of decorating the button
+    private var primaryColorGradientStartColor: UIColor? = nil
+    private var primaryColorGradientEndColor: UIColor? = nil
+    private var primaryColorGradientHorizontal: Bool = false
+    private var primaryColorBorderColor: UIColor = UIColor.white
+    private var primaryColorTitleColor: UIColor = UIColor.white
+    private var primaryColorTitleShadowColor: UIColor = UIColor.black
+    private var primaryColorTitleShadowOffset: CGSize = CGSize.init(width: 1, height: 1)
+    private var primaryColorLeftIconColor: UIColor = UIColor.white
+    private var primaryColorRightIconColor: UIColor = UIColor.white
+    
     // MARK: - Inspectable properties
     // MARK:
+    
+    @IBInspectable public var primaryColor: UIColor = UIColor.blue {
+        didSet{
+            remapButtonColors()
+        }
+    }
+    
+    @IBInspectable public var gradientLightnessSpread: CGFloat = 0.4 {
+        didSet{
+            remapButtonColors()
+        }
+    }
+    
+    @IBInspectable public var usePrimaryColorToMapAllColors: Bool = true {
+        didSet{
+            remapButtonColors()
+        }
+    }
     
     @IBInspectable public var bgColor: UIColor = UIColor.gray {
         didSet{
@@ -463,10 +492,10 @@ open class LGButton: UIControl {
     }
     
     fileprivate func setupGradientBackground() {
-        if gradientStartColor != nil && gradientEndColor != nil && gradient == nil{
+        if primaryColorGradientStartColor != nil && primaryColorGradientEndColor != nil && gradient == nil{
             gradient = CAGradientLayer()
             gradient!.frame.size = frame.size
-            gradient!.colors = [gradientStartColor!.cgColor, gradientEndColor!.cgColor]
+            gradient!.colors = [primaryColorGradientStartColor!.cgColor, primaryColorGradientEndColor!.cgColor]
             
             var rotation:CGFloat!
             if gradientRotation >= 0 {
@@ -475,7 +504,7 @@ open class LGButton: UIControl {
                 rotation = max(gradientRotation, CGFloat(-360.0))
             }
             var xAngle:Float = Float(rotation/360)
-            if (gradientHorizontal) {
+            if (primaryColorGradientHorizontal) {
                 xAngle = 0.25
             }
             let a = pow(sinf((2*Float(Double.pi)*((xAngle+0.75)/2))),2)
@@ -497,22 +526,58 @@ open class LGButton: UIControl {
             bgContentView.layer.cornerRadius = cornerRadius
             layer.cornerRadius = cornerRadius
         }
-        self.layer.borderColor = borderColor.cgColor
+        self.layer.borderColor = primaryColorBorderColor.cgColor
         self.layer.borderWidth = borderWidth
+    }
+    
+    fileprivate func remapButtonColors() {
+        
+        if (usePrimaryColorToMapAllColors) {
+
+            primaryColorGradientStartColor = primaryColor.lightenAmount(amount: gradientLightnessSpread/2.0)
+            primaryColorGradientEndColor = primaryColor.darkenAmount(amount: gradientLightnessSpread/2.0)
+            primaryColorGradientHorizontal = false
+            primaryColorBorderColor = primaryColor.darkenAmount(amount: (1.1*gradientLightnessSpread/2.0))
+            
+            let textColor = primaryColor.recommendedTextColorForBackground()
+            primaryColorTitleColor = textColor
+            primaryColorRightIconColor = textColor
+            primaryColorLeftIconColor = textColor
+            
+            let textShadowColor = primaryColor.recommendedTextShadowColorForBackground()
+            primaryColorTitleShadowColor = textShadowColor
+            primaryColorTitleShadowOffset = CGSize.init(width: 1, height: 1)
+            
+        } else {
+            
+            primaryColorGradientStartColor = gradientStartColor
+            primaryColorGradientEndColor = gradientEndColor
+            primaryColorGradientHorizontal = gradientHorizontal
+            primaryColorBorderColor = borderColor
+            
+            primaryColorTitleColor = titleColor
+            primaryColorRightIconColor = rightIconColor
+            primaryColorLeftIconColor = leftIconColor
+            
+            primaryColorTitleShadowColor = titleShadowColor
+            primaryColorTitleShadowOffset = titleShadowOffset
+        }
+        
+        setupView()
     }
     
     fileprivate func setupTitle() {
         titleLbl.isHidden = titleString.isEmpty
         titleLbl.numberOfLines = titleNumOfLines
         titleLbl.text = titleString
-        titleLbl.textColor = titleColor
+        titleLbl.textColor = primaryColorTitleColor
         if titleFontName != nil {
             titleLbl.font = UIFont.init(name:titleFontName! , size:titleFontSize)
         }else{
             titleLbl.font = UIFont.systemFont(ofSize: titleFontSize)
         }
-        titleLbl.shadowColor = titleShadowColor
-        titleLbl.shadowOffset = titleShadowOffset
+        titleLbl.shadowColor = primaryColorTitleShadowColor
+        titleLbl.shadowOffset = primaryColorTitleShadowOffset
     }
     
     fileprivate func setupLeftIcon(){
@@ -520,7 +585,7 @@ open class LGButton: UIControl {
                   fontName: leftIconFontName,
                   iconName: leftIconString,
                   fontSize: leftIconFontSize,
-                  color: leftIconColor)
+                  color: primaryColorLeftIconColor)
     }
     
     fileprivate func setupRightIcon(){
@@ -528,7 +593,7 @@ open class LGButton: UIControl {
                   fontName: rightIconFontName,
                   iconName: rightIconString,
                   fontSize: rightIconFontSize,
-                  color: rightIconColor)
+                  color: primaryColorRightIconColor)
     }
     
     fileprivate func setupLeftImage(){
@@ -603,6 +668,8 @@ open class LGButton: UIControl {
             icon.isHidden = false
             icon.textColor = color
             icon.font = UIFont.icon(from: iconFont, ofSize: fontSize)
+            icon.shadowColor = primaryColorTitleShadowColor
+            icon.shadowOffset = primaryColorTitleShadowOffset
             if let iconStr = String.getIcon(from: iconFont, code: iconName) {
                 icon.text = iconStr
             }else{
@@ -730,5 +797,94 @@ open class LGButton: UIControl {
                 self.pressed = false
             }
         }
+    }
+}
+
+extension UIColor {
+    
+    func isColorPerceivedAsLight() -> Bool {
+        
+        let isLight = self.isLight(threshold: 0.7)
+        if (nil != isLight) {
+            return isLight!
+        }
+        return true
+    }
+    
+    // Check if the color is light or dark, as defined by the injected lightness threshold.
+    // Some people report that 0.7 is best. I suggest to find out for yourself.
+    // A nil value is returned if the lightness couldn't be determined.
+    func isLight(threshold: Float = 0.7) -> Bool? {
+        let originalCGColor = self.cgColor
+        
+        // Now we need to convert it to the RGB colorspace. UIColor.white / UIColor.black are greyscale and not RGB.
+        // If you don't do this then you will crash when accessing components index 2 below when evaluating greyscale colors.
+        let RGBCGColor = originalCGColor.converted(to: CGColorSpaceCreateDeviceRGB(), intent: .defaultIntent, options: nil)
+        guard let components = RGBCGColor?.components else {
+            return nil
+        }
+        guard components.count >= 3 else {
+            
+            // RGB test failed, so try converting to grayscale image
+            let bwCGColor = originalCGColor.converted(to: CGColorSpaceCreateDeviceGray(), intent: .defaultIntent, options: nil)
+            guard let bwComponents = bwCGColor?.components else {
+                return nil
+            }
+            guard bwComponents.count >= 1 else {
+                return nil
+            }
+            let bwBrightness = Float(bwComponents[0])
+            return (bwBrightness > threshold)
+        }
+        
+        let brightness = Float(((components[0] * 299) + (components[1] * 587) + (components[2] * 114)) / 1000)
+        return (brightness > threshold)
+    }
+    
+    func darkenAmount(amount: CGFloat) -> UIColor {
+        
+        return self.lightenAmount(amount: -amount)
+    }
+    
+    func lightenAmount(amount: CGFloat) -> UIColor {
+        var h: CGFloat = 0;
+        var s: CGFloat = 0;
+        var b: CGFloat = 0;
+        var a: CGFloat = 0;
+        
+        self.getHue(&h, saturation: &s, brightness: &b, alpha: &a);
+        
+        let newB = (b + amount).clampValueMin(min: 0.0, max: 1.0)
+        
+        let newColor = UIColor.init(hue: h, saturation: s, brightness: newB, alpha: a)
+        return newColor
+    }
+    
+    func recommendedTextColorForBackground() -> UIColor {
+        
+        var textColor = UIColor.white
+        let isBkgdLight = self.isColorPerceivedAsLight()
+        if (isBkgdLight) {
+            textColor = UIColor.black
+        }
+        return textColor
+    }
+
+    func recommendedTextShadowColorForBackground() -> UIColor {
+        
+        var textShadowColor = UIColor.black
+        let isBkgdLight = self.isColorPerceivedAsLight()
+        if (isBkgdLight) {
+            textShadowColor = UIColor.white
+        }
+        return textShadowColor
+    }
+}
+
+extension CGFloat {
+    
+    func clampValueMin(min: CGFloat, max: CGFloat) -> CGFloat {
+        
+        return (self > max) ? max : ((self < min) ? min : self)
     }
 }

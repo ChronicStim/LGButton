@@ -1,8 +1,8 @@
 {
   "name": "LGButton",
-  "version": "1.0.4",
+  "version": "10.1.7",
   "summary": "A fully customisable subclass of the native UIControl which allows you to create beautiful buttons without writing any line of code.",
-  "homepage": "https://cocoapods.org/pods/LGButton",
+  "homepage": "https://github.com/ChronicStim/LGButton.git",
   "license": {
     "type": "MIT",
     "file": "LICENSE.md"
@@ -11,8 +11,8 @@
     "Lorenzo Greco": "lorenzo.gr90@gmail.com"
   },
   "source": {
-    "git": "https://github.com/loregr/LGButton.git",
-    "tag": "1.0.4"
+    "git": "https://github.com/ChronicStim/LGButton.git",
+    "tag": "10.1.7"
   },
   "platforms": {
     "ios": "9.0"
