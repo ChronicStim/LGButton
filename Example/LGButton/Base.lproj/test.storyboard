@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AYo-bd-3Ka">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="HET-BT-RR3">
+            <objects>
+                <viewController storyboardIdentifier="test" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WGN-Qe-KZD" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="70J-A1-CZq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zVY-fi-ESr">
+                                <rect key="frame" x="20" y="37" width="78.5" height="31.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gPv-bC-ATQ" userLabel="LooseButton" customClass="CPTLGButton" customModule="LGButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="78.5" height="31.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="primaryColor">
+                                                <color key="value" red="0.5643461045" green="0.061393173709999999" blue="0.069775722560000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="titleString" value="Cancel"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="leftIconFontName" value="fa"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="leftIconString" value="ban"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="gPv-bC-ATQ" firstAttribute="top" secondItem="zVY-fi-ESr" secondAttribute="top" id="FEJ-Gf-eJr"/>
+                                    <constraint firstItem="gPv-bC-ATQ" firstAttribute="width" secondItem="zVY-fi-ESr" secondAttribute="width" id="FXc-cp-dQc"/>
+                                    <constraint firstItem="gPv-bC-ATQ" firstAttribute="leading" secondItem="zVY-fi-ESr" secondAttribute="leading" id="JpK-7n-YGw"/>
+                                    <constraint firstItem="gPv-bC-ATQ" firstAttribute="height" secondItem="zVY-fi-ESr" secondAttribute="height" id="K9V-QF-J9d"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="zVY-fi-ESr" firstAttribute="top" secondItem="cMd-Au-YfH" secondAttribute="top" constant="37" id="Teo-ZY-E1Q"/>
+                            <constraint firstItem="zVY-fi-ESr" firstAttribute="leading" secondItem="cMd-Au-YfH" secondAttribute="leading" constant="20" id="pHa-X4-6eU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cMd-Au-YfH"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yHf-IC-V9N">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="Noo-vU-aoP">
+                            <view key="customView" contentMode="scaleToFill" id="dY2-7V-gwO" userLabel="NavButton" customClass="CPTLGButton" customModule="LGButton">
+                                <rect key="frame" x="20" y="6.5" width="78.5" height="31.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="titleString" value="Cancel"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="primaryColor">
+                                        <color key="value" red="0.031849765760000003" green="0.36013299050000003" blue="0.48707726880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="leftIconString" value="ban"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="leftIconFontName" value="fa"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v2D-lL-LD1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="95.652173913043484" y="290.625"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="oZh-VO-rAv">
+            <objects>
+                <navigationController storyboardIdentifier="testNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AYo-bd-3Ka" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="X4w-Ob-kM7">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0015153357530000001" green="0.02977542952" blue="0.38633361459999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textShadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="WGN-Qe-KZD" kind="relationship" relationship="rootViewController" id="f3L-vl-c4U"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H3U-fi-Ptg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-668" y="291"/>
+        </scene>
+    </scenes>
+</document>

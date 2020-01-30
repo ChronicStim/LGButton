@@ -469,6 +469,8 @@ open class LGButton: UIControl {
         setupShadow()
         setupLoadingView()
         setupAlignment()
+        setNeedsUpdateConstraints()
+        updateConstraintsIfNeeded()
     }
     
     fileprivate func registIconFont() {
@@ -719,11 +721,16 @@ open class LGButton: UIControl {
     fileprivate func xibSetup() {
         guard rootView == nil else { return }
         rootView = loadViewFromNib()
-        rootView.frame = bounds
-        rootView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        rootView.translatesAutoresizingMaskIntoConstraints = false
+        
         addSubview(rootView)
+        NSLayoutConstraint.activate([rootView.topAnchor.constraint(equalTo: self.topAnchor),
+                                     rootView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+                                     rootView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                                     rootView.trailingAnchor.constraint(equalTo: self.trailingAnchor)])
         leadingLoadingConstraint.isActive = false
         trailingLoadingConstraint.isActive = false
+        self.setNeedsLayout()
     }
     
     fileprivate func loadViewFromNib() -> UIView {
