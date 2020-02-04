@@ -8,7 +8,7 @@
 import UIKit
 
 @IBDesignable
-class CPTNavLGButton: LGButton {
+open class CPTNavLGButton: LGButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

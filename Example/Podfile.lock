@@ -1,5 +1,5 @@
 PODS:
-  - LGButton (10.1.8)
+  - LGButton (10.1.9)
 
 DEPENDENCIES:
   - LGButton (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LGButton: 610bc41ec26ef4b67550a4795fbc711ae80320fc
+  LGButton: 2d55536003c5e94742b0ddb3923a579d47b9ccc8
 
 PODFILE CHECKSUM: 448b2d5ebb3f7a98ab2e34cf948f1d44062399e6
 

@@ -1,6 +1,6 @@
 {
   "name": "LGButton",
-  "version": "10.1.8",
+  "version": "10.1.9",
   "summary": "A fully customisable subclass of the native UIControl which allows you to create beautiful buttons without writing any line of code.",
   "homepage": "https://github.com/ChronicStim/LGButton.git",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/ChronicStim/LGButton.git",
-    "tag": "10.1.8"
+    "tag": "10.1.9"
   },
   "platforms": {
     "ios": "9.0"
